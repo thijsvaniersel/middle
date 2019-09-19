@@ -330,15 +330,14 @@ export default {
 
       // switch view in the sidebar
       this.$store.dispatch('user/changeShow', type)
-    }
-  },
+    },
 
-  watch: {
-
-    addressOne: function(){
-
+    changeAddress(){
       // adjust map bounds
       this.fitBounds();
+
+      // close any open infowindow
+      this.infoWinOpen = false
 
       // check when addressone changes
       if(this.checkBothAddresses()){
@@ -349,22 +348,21 @@ export default {
         // (re)calculate midPoint
         this.calculateMidPoint()
       }
+    }
+  },
+
+  watch: {
+
+    addressOne: function(){
+      
+      // all sorts of actions when an address changes
+      this.changeAddress()
     },
 
     addressTwo: function(){
 
-      // adjust map bounds
-      this.fitBounds();
-
-      // check when addresstwo changes
-      if(this.checkBothAddresses()){
-
-        // change show in store
-        this.$store.dispatch('user/changeShow', 'suggestions')
-
-        // (re)calculate midPoint
-        this.calculateMidPoint()
-      }
+      // all sorts of actions when an address changes
+      this.changeAddress()
     }
   }
 }
