@@ -73,8 +73,7 @@
               lat: this.markers.addressOne.position.lat,
               lng: this.markers.addressOne.position.lng
             }"
-            :icon="{ url: require('@/assets/images/addressOne.png')}"
-            @click="toggleInfoWindow(markers.addressOne,1)"
+            :icon="{ url: require('@/assets/images/addressOne.png')}"            
           />
 
           <GmapMarker
@@ -84,7 +83,6 @@
               lng: this.markers.addressTwo.position.lng
             }"
             :icon="{ url: require('@/assets/images/addressTwo.png')}"
-            @click="toggleInfoWindow(markers.addressTwo,1)"
           />
 
           <gmap-info-window
