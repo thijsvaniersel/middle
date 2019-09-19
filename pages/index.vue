@@ -339,22 +339,32 @@ export default {
 
     addressOne: function(){
 
+      // adjust map bounds
       this.fitBounds();
 
       // check when addressone changes
       if(this.checkBothAddresses()){
-        this.show = 'suggestions'
+
+        // change show in store
+        this.$store.dispatch('user/changeShow', 'suggestions')
+
+        // (re)calculate midPoint
         this.calculateMidPoint()
       }
     },
 
     addressTwo: function(){
 
+      // adjust map bounds
       this.fitBounds();
 
       // check when addresstwo changes
       if(this.checkBothAddresses()){
-        this.show = 'suggestions'
+
+        // change show in store
+        this.$store.dispatch('user/changeShow', 'suggestions')
+
+        // (re)calculate midPoint
         this.calculateMidPoint()
       }
     }

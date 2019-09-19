@@ -25,8 +25,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$dark-blue: #2a393d;
-
 header {
     margin-bottom: 5em;
     padding: 1em;
