@@ -5,10 +5,10 @@
 ## Used techniques
 This site is build with the Nuxt.js framework. It uses the Google Maps and Google Maps Places API. 
 
-### Browser
+## Browser
 At this moment, the website works best on a desktop browser. The site is not mobile-friendly at this point. This would be a great next step to develop.
 
-#### Build Setup
+## Build Setup
 
 ``` bash
 # install dependencies
