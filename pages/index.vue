@@ -8,16 +8,16 @@
       <nav class="sidebar">
         <div class="sidebarInner">
           
+          <!-- component with logo en tagline -->
           <top />
 
-          <div class="buttons">
-            <a @click="switchShow('addresses')" :class="show == 'addresses' ? 'active' : ''">Addresses</a>
-            <a @click="switchShow('suggestions')" :class="show == 'suggestions' ? 'active' : ''">Meet here</a>
-            <div class="clear"></div>
-          </div>
+          <!-- component to switch between addresses and meet here -->
+          <buttons />
 
+          <!-- component with input for addresses -->
           <addresses />
 
+          <!-- all suggestions -->
           <section class="suggestions" v-show="show === 'suggestions'">
 
             <p v-if="markers.suggestions.length == 0" class="error">No suggestions for a place to meet yet...</p>
@@ -46,6 +46,7 @@
         </div>
       </nav>
 
+      <!-- map -->
       <main role="main">
         <GmapMap
           :zoom="10"
@@ -101,12 +102,14 @@
 
 <script>
 import top from '@/components/top'
+import buttons from '@/components/buttons'
 import addresses from '@/components/addresses'
 
 export default {
 
   components: {
     top,
+    buttons,
     addresses
   },
 
@@ -188,9 +191,10 @@ export default {
         // perform API to Google places
         service.nearbySearch(request, (results, status) => {
 
-          // when no results, expand the radius
-          if(results.length == 0 || results == null){
-            this.findSuggestions('20000')
+          // when no results, expand the radius by 10K and repeat function
+          if(results && results.length == 0 || results == null){
+            let newRadius = parseInt(radius) + 10000
+            this.findSuggestions(newRadius)
             return
           }
 
@@ -326,12 +330,6 @@ export default {
       return false
     },
 
-    switchShow: function(type){
-
-      // switch view in the sidebar
-      this.$store.dispatch('user/changeShow', type)
-    },
-
     changeAddress(){
       // adjust map bounds
       this.fitBounds();
@@ -368,7 +366,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .middle {
   width: 100%;
   height: 100vh;
