@@ -120,6 +120,7 @@ export default {
         lat: 0,
         lng: 0
       },
+      radiusCircle: '',
       infoWinOpen: false,
       currentMidx: null,
       infoOptions: {
@@ -178,12 +179,31 @@ export default {
           radius = 500
         }
 
+        let center = new google.maps.LatLng(this.midPoint.latitude,this.midPoint.longitude)
+
         // parameters
         let request = {
-          location: new google.maps.LatLng(this.midPoint.latitude,this.midPoint.longitude),
+          location: center,
           radius: radius,
           type: ['restaurant']
         };
+
+        // if any, clear the previous circle
+        if(this.radiusCircle !== ''){
+          this.radiusCircle.setMap(null)
+        }
+
+        // draw a circle to show the searching area
+        this.radiusCircle = new google.maps.Circle({
+          strokeColor: '#308067',
+          strokeOpacity: 0.2,
+          strokeWeight: 2,
+          fillColor: '#308067',
+          fillOpacity: 0.1,
+          map: map,
+          center: center,
+          radius: parseInt(radius)
+        });              
 
         // init Google places
         let service = new google.maps.places.PlacesService(map);
@@ -193,8 +213,13 @@ export default {
 
           // when no results, expand the radius by 10K and repeat function
           if(results && results.length == 0 || results == null){
-            let newRadius = parseInt(radius) + 10000
-            this.findSuggestions(newRadius)
+            let newRadius = parseInt(radius) + 50000
+            
+            setTimeout(() => { 
+              console.log(newRadius)
+              this.findSuggestions(newRadius)
+            }, 300);
+            
             return
           }
 
@@ -222,7 +247,9 @@ export default {
           map.panTo(request.location)
 
           // zoom to the suggested markers
-          this.smoothZoom(map, 12, map.getZoom());
+          if(distance < 5000){
+            this.smoothZoom(map, 12, map.getZoom());
+          }
 
           // fit bounds with all markers
           this.fitBounds()
