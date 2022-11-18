@@ -19,7 +19,7 @@
     "bootstrap-vue": "^2.0.0-beta",
     "cross-env": "^5.2.0",
     "node-sass": "^4.10.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "sass-loader": "^7.1.0",
     "vue-browser-geolocation": "^1.8.0",
     "vue2-google-maps": "^0.10.7"
